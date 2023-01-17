@@ -86,61 +86,65 @@ public class Population {
 		original.set(y, temp);
 	}
 	
-	public void sortGivenArray(List<City> inputArray){       
-        divide(0, inputArray.size()-1);
-    }
-    
-    public void divide(int startIndex,int endIndex){
-        
-        //Divide till you breakdown your list to single element
-        if(startIndex<endIndex && (endIndex-startIndex)>=1){
-            int mid = (endIndex + startIndex)/2;
-            divide(startIndex, mid);
-            divide(mid+1, endIndex);        
-            
-            //merging Sorted array produce above into one sorted array
-            merger(startIndex,mid,endIndex);            
-        }       
-    }   
-    
-    public void merger(int startIndex,int midIndex,int endIndex){
-        
-        //Below is the mergedarray that will be sorted array Array[i-midIndex] , Array[(midIndex+1)-endIndex]
-        ArrayList<Integer> mergedSortedArray = new ArrayList<Integer>();
-        
-        int leftIndex = startIndex;
-        int rightIndex = midIndex+1;
-        
-        while(leftIndex<=midIndex && rightIndex<=endIndex){
-            if(inputArray.get(leftIndex)<=inputArray.get(rightIndex)){
-                mergedSortedArray.add(inputArray.get(leftIndex));
-                leftIndex++;
-            }else{
-                mergedSortedArray.add(inputArray.get(rightIndex));
-                rightIndex++;
-            }
-        }       
-        
-        //Either of below while loop will execute
-        while(leftIndex<=midIndex){
-            mergedSortedArray.add(inputArray.get(leftIndex));
-            leftIndex++;
-        }
-        
-        while(rightIndex<=endIndex){
-            mergedSortedArray.add(inputArray.get(rightIndex));
-            rightIndex++;
-        }
-        
-        int i = 0;
-        int j = startIndex;
-        //Setting sorted array to original one
-        while(i<mergedSortedArray.size()){
-            inputArray.set(j, mergedSortedArray.get(i++));
-            j++;
-        }
-    }
+	public void mergeSort(List<City> arrToSort, int startIdx, int endIdx)
+	{
+		if (startIdx >= endIdx) //array contains just a single element
+			return; 
 
+		int midIdx = startIdx + (endIdx - startIdx) / 2; //middle index
+		mergeSort(arrToSort, startIdx, midIdx); //Divide the left half recursively
+		mergeSort(arrToSort, midIdx + 1, endIdx); //Divide the right half recursively
+				
+		merge(arrToSort, startIdx, midIdx, endIdx); //merge the left and right half
+	}
+	
+	
+	public void merge(List<City> arrToSort, int startIdx, int midIdx, int endIdx)
+	{
+		List<City> leftArr = new ArrayList<City>(); 
+		List<City> rightArr = new ArrayList<City>();
+			
+		//Initializing the left and right arrays
+		for(int i=0; i<midIdx - startIdx + 1; i++)
+			leftArr.add(arrToSort.get(startIdx + i));
+			
+		for(int i=0; i<endIdx - midIdx; i++)
+			rightArr.add(arrToSort.get(midIdx + i + 1));
+			
+		//merging the left and right arrays into a single sorted array
+		int leftArrIdx = 0, rightArrIdx = 0, sortedArrIdx = startIdx;
+		while((leftArrIdx < leftArr.size()) && (rightArrIdx < rightArr.size()))
+		{
+			if(leftArr.get(leftArrIdx).compareTo(rightArr.get(rightArrIdx) < 0)
+			{
+				arrToSort.set(sortedArrIdx, leftArr.get(leftArrIdx));
+				leftArrIdx += 1;
+			}
+			else
+			{
+				arrToSort.set(sortedArrIdx, rightArr.get(rightArrIdx));
+				rightArrIdx += 1;
+			}
+			sortedArrIdx += 1;
+		}
+			
+		//Adding the rest of the elements of left array if present
+		while(leftArrIdx < leftArr.size())
+		{
+			arrToSort.set(sortedArrIdx, leftArr.get(leftArrIdx));
+			leftArrIdx += 1;
+			sortedArrIdx += 1;
+		}
+			
+		//Adding the rest of the elements of right array if present
+		while(rightArrIdx < rightArr.size())
+		{
+			arrToSort.set(sortedArrIdx, rightArr.get(rightArrIdx));
+			rightArrIdx += 1;
+			sortedArrIdx += 1;
+		}
+	}
+	
 	public void leastPopCities(){
 		int indexToSwitch = 0;
 		int loopCounter = 0;

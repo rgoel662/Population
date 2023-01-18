@@ -115,7 +115,7 @@ public class Population {
 		int leftArrIdx = 0, rightArrIdx = 0, sortedArrIdx = startIdx;
 		while((leftArrIdx < leftArr.size()) && (rightArrIdx < rightArr.size()))
 		{
-			if(leftArr.get(leftArrIdx).compareTo(rightArr.get(rightArrIdx) < 0)
+			if(leftArr.get(leftArrIdx).compareTo(rightArr.get(rightArrIdx)) < 0)
 			{
 				arrToSort.set(sortedArrIdx, leftArr.get(leftArrIdx));
 				leftArrIdx += 1;

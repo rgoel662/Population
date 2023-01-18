@@ -53,20 +53,6 @@ public class City implements Comparable<City> {
 		}
 	}
 	
-	/**	Compare two cities state names
-	 * 
-	 *	@param other		the other City to compare
-	 *	@return				the following value:
-	 */
-	public int compareStates(City other){
-		if (this.state.compareTo(other.state) != 0)
-			return this.state.compareTo(other.state);
-		else if (this.population != other.population)
-			return this.population - other.population;
-		else
-			return this.name.compareTo(other.name);
-	}
-	
 	/**	Equal city name and state name
 	 *	@param other		the other City to compare
 	 *	@return				true if city name and state name equal; false otherwise

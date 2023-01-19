@@ -1,4 +1,4 @@
-BAlabama	Abbeville	city	2567
+Alabama	Abbeville	city	2567
 Alabama	Adamsville	city	4347
 Alabama	Addison	town	728
 Alabama	Akron	town	332
